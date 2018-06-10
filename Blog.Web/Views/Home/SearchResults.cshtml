@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "SearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<SearchResult>
+
+@if (!Model.Any())
+{
+    <h2>No results available for your search</h2>
+}
+else
+{
+    @foreach (var result in Model)
+    {
+
+        <h2>Search Results</h2>
+
+        <div class="searchResult">
+
+            <h3>
+                <small>@result.Post.Date.ToString("dd MMM yyyy")</small>
+                <br />
+                @result.Post.Title
+            </h3>
+            <p>@result.SnapshotText</p>
+        </div>
+    }
+}

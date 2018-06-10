@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Post> 
+
+<h3>Posts</h3>
+<div class="blogPostList">
+    <ul>
+        @foreach (var blogPost in Model)
+        {
+            <li><a asp-controller="Blog" asp-action="Post" asp-route-permalink="@blogPost.Permalink">@blogPost.Title</a></li>
+        }
+    </ul>
+</div>

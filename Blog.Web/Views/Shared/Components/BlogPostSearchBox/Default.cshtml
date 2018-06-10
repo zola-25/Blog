@@ -1,0 +1,9 @@
+﻿@model SearchRequest
+
+<h3>Search</h3>
+<div class="blogPostSearchBox">
+    <form asp-controller="Blog" asp-action="SearchRedirect">
+        <input asp-for="Text" />
+        <input type="submit" />
+    </form>
+</div>
