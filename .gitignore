@@ -142,6 +142,9 @@ node_modules/
 # Bower
 bower_components/
 
+#App settings
+appsettings.Development.json
+
 
 # EF Migrations
 Blog.Data/Migrations/
@@ -227,3 +230,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+Blog.Web/appsettings.Development.json
