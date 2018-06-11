@@ -6,7 +6,10 @@
       "node_modules/bootstrap/dist/**/*",
       "node_modules/tinymce/*.js",
       "node_modules/tinymce/plugins/preview/**/*",
-      "node_modules/tinymce/plugins/code/**/*"
+      "node_modules/tinymce/plugins/code/**/*",
+      "node_modules/tinymce/themes/**/*",
+      "node_modules/tinymce/skins/**/*"
+
     ],
     "dest": "wwwroot/lib"
 
