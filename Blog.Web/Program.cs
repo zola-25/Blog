@@ -6,7 +6,7 @@ namespace Blog
 {
     public class Program
     {
-        public static Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
             host.Seed().Wait();
