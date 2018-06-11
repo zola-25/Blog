@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Blog.Data.Services
+namespace Blog.Web.Services
 {
     public static class DatabaseSeedInitializer
     {

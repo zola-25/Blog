@@ -1,4 +1,4 @@
-﻿namespace Blog.Web.Controllers
+﻿namespace Blog.Web.ViewModels
 {
     public class LoginRequest
     {

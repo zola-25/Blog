@@ -9,13 +9,15 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private BlogDbContext _blogContext;
+        private BlogDbContext _bloggingContext;
+        private ISnapshotText _snapshotText;
         private IMapper _mapper;
 
-        public HomeController(BlogDbContext blogContext, IMapper mapper)
+        public HomeController(BlogDbContext blogContext, ISnapshotText snapshotText, IMapper mapper)
         {
+            _bloggingContext = blogContext;
+            _snapshotText = snapshotText;
             _mapper = mapper;
-            _blogContext = blogContext;
         }
 
         public IActionResult Index()
@@ -29,24 +31,22 @@ namespace Blog.Controllers
 
             return View(viewPost);
         }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
         
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+         
+        public IActionResult Post(string permalink)
+        {
+            var dbPost = _bloggingContext
+                .Posts
+                .Single(c => c.Permalink == permalink);
+
+            var viewPost = _mapper.Map<Data.Models.Post, ViewModels.Post>(dbPost);
+
+            return View(viewPost);
         }
     }
 }

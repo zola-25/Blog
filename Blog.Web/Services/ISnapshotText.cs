@@ -1,4 +1,4 @@
-﻿namespace Blog.Services
+﻿namespace Blog.Web.Services
 {
     public interface ISnapshotText
     {

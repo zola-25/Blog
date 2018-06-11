@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Blog.Services
+namespace Blog.Web.Services
 {
     public class SnapshotText : ISnapshotText
     {
