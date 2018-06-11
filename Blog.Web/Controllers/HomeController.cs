@@ -9,14 +9,12 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private BlogDbContext _bloggingContext;
-        private ISnapshotText _snapshotText;
+        private BlogDbContext _blogContext;
         private IMapper _mapper;
 
-        public HomeController(BlogDbContext blogContext, ISnapshotText snapshotText, IMapper mapper)
+        public HomeController(BlogDbContext blogContext, IMapper mapper)
         {
-            _bloggingContext = blogContext;
-            _snapshotText = snapshotText;
+            _blogContext = blogContext;
             _mapper = mapper;
         }
 
@@ -40,7 +38,7 @@ namespace Blog.Controllers
          
         public IActionResult Post(string permalink)
         {
-            var dbPost = _bloggingContext
+            var dbPost = _blogContext
                 .Posts
                 .Single(c => c.Permalink == permalink);
 

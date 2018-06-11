@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Blog.Data;
 using Blog.Data.Models;
-using Blog.Services;
+using Blog.Web.Services;
 using Blog.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

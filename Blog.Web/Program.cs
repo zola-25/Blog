@@ -1,4 +1,4 @@
-﻿using Blog.Data.Services;
+﻿using Blog.Web.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 

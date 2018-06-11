@@ -1,9 +1,10 @@
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Blog.ViewModels;
 using Blog.Data.Models;
 using AutoMapper;
+using Blog.Web.Services;
+using Microsoft.AspNetCore.Routing;
 
 namespace Blog.Controllers
 {
