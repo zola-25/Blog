@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blog.Data.Services
 {
@@ -25,7 +26,7 @@ namespace Blog.Data.Services
             }
         }
 
-        public async void SeedRoles(RoleManager<BlogRole> roleManager)
+        public async Task SeedRoles(RoleManager<BlogRole> roleManager)
         {
             if (!await roleManager.RoleExistsAsync("Administrator"))
             {
@@ -35,7 +36,7 @@ namespace Blog.Data.Services
             }
         }
 
-        public async void SeedUsers(UserManager<BlogUser> userManager)
+        public async Task SeedUsers(UserManager<BlogUser> userManager)
         {
             if (await userManager.FindByNameAsync("DefaultUser") == null)
             {

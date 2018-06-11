@@ -6,10 +6,10 @@ namespace Blog
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static Task Main(string[] args)
         {
             var host = BuildWebHost(args);
-            host.Seed();
+            host.Seed().Wait();
             host.Run();
         }
 

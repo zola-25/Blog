@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading.Tasks;
 
 namespace Blog.Data.Services
 {
     public static class DatabaseSeedInitializer
     {
-        public static IWebHost Seed(this IWebHost host)
+        public static async Task<IWebHost> Seed(this IWebHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -23,8 +24,8 @@ namespace Blog.Data.Services
 
                     var dataSeeder = new DataSeeder();
                     dataSeeder.SeedPosts(dbContext);
-                    // dataSeeder.SeedRoles(roleManager);
-                    // dataSeeder.SeedUsers(userManager);
+                    await dataSeeder.SeedRoles(roleManager);
+                    await dataSeeder.SeedUsers(userManager);
                 }
                 catch (Exception ex)
                 {
