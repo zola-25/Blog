@@ -10,8 +10,10 @@
             "label": "build-web",
             "command": "dotnet build",
             "type": "shell",
-            "group": "build",
-
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "reveal": "always"
             },
