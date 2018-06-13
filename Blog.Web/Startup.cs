@@ -28,9 +28,17 @@ namespace Blog
             services.AddMvc();
             services.AddTransient<ISnapshotText, SnapshotText>();
             services.AddAutoMapper(c=> { c.AddProfile(new MappingProfile()); });
-            services.AddIdentity<BlogUser, BlogRole>()
-                    .AddEntityFrameworkStores<BlogDbContext>()
-                    .AddDefaultTokenProviders();
+            services.AddIdentity<BlogUser, BlogRole>(options => {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireUppercase = true;
+
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan  = new TimeSpan(0,20,0);
+
+            })
+            .AddEntityFrameworkStores<BlogDbContext>()
+            .AddDefaultTokenProviders();
 
             var connection = Configuration.GetConnectionString("BlogDatabase");
             services.AddDbContext<Data.Models.BlogDbContext>(options => options.UseSqlServer(connection));
