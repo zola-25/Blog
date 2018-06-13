@@ -232,3 +232,4 @@ pip-log.txt
 .mr.developer.cfg
 
 appsettings.Development.json
+Blog.Web/wwwroot/lib/
