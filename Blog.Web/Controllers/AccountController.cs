@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Blog.Data.Models;
 using Blog.ViewModels;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +11,15 @@ namespace Blog.Web.Controllers
     public class AccountController : Controller
     {
 
-        private SignInManager<BlogUser> _signInManager;
+        private SignInManager<BlogAdminUser> _signInManager;
+        private RoleManager<BlogAdminRole> _roleManager;
+        private UserManager<BlogAdminUser> _userManager;
 
-        public AccountController(SignInManager<BlogUser> signInManager)
+        public AccountController(UserManager<BlogAdminUser> userManager, RoleManager<BlogAdminRole> roleManager, SignInManager<BlogAdminUser> signInManager)
         {
             _signInManager = signInManager;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -39,13 +45,26 @@ namespace Blog.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
+
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(
-                        loginRequest.Username,
+
+                var userByEmail = await _userManager.FindByEmailAsync(loginRequest.UsernameOrEmail);
+
+                Microsoft.AspNetCore.Identity.SignInResult result;
+                if(userByEmail == null) // if can't find user by email address, assumed they provided their username
+                {
+                    result = await _signInManager.PasswordSignInAsync(
+                        loginRequest.UsernameOrEmail,
                         loginRequest.Password,
                         loginRequest.RememberMe,
-                        false);
+                        false);                   
+                }
+                else
+                {
+                    result = await _signInManager.PasswordSignInAsync(userByEmail, loginRequest.Password, loginRequest.RememberMe, false);
+                }
+
 
                 if (result.Succeeded)
                 {
@@ -58,6 +77,7 @@ namespace Blog.Web.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+
                 }
             }
             ModelState.AddModelError("", "Invalid login details");

@@ -2,7 +2,7 @@
 using System;
 namespace Blog.Data.Models
 {
-    public class BlogUser : IdentityUser<Guid>
+    public class BlogAdminUser : IdentityUser<Guid>
     {
     }
 }

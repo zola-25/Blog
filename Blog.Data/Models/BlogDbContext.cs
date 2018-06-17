@@ -5,7 +5,7 @@ using System;
 
 namespace Blog.Data.Models
 {
-    public class BlogDbContext : IdentityDbContext<BlogUser,BlogRole, Guid>
+    public class BlogDbContext : IdentityDbContext<BlogAdminUser,BlogAdminRole, Guid>
     {
         public BlogDbContext(DbContextOptions<BlogDbContext> options)
             : base(options)

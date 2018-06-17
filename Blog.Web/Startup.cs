@@ -28,7 +28,7 @@ namespace Blog
             services.AddMvc();
             services.AddTransient<ISnapshotText, SnapshotText>();
             services.AddAutoMapper(c=> { c.AddProfile(new MappingProfile()); });
-            services.AddIdentity<BlogUser, BlogRole>(options => {
+            services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;

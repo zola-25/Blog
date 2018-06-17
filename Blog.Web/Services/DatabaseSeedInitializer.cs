@@ -18,14 +18,14 @@ namespace Blog.Web.Services
                 try
                 {
                     var dbContext = scope.ServiceProvider.GetService<BlogDbContext>();
-                    var roleManager = scope.ServiceProvider.GetService<RoleManager<BlogRole>>();
-                    var userManager = scope.ServiceProvider.GetService<UserManager<BlogUser>>();
+                    var roleManager = scope.ServiceProvider.GetService<RoleManager<BlogAdminRole>>();
+                    var userManager = scope.ServiceProvider.GetService<UserManager<BlogAdminUser>>();
 
 
                     var dataSeeder = new DataSeeder();
                     dataSeeder.SeedPosts(dbContext);
-                    await dataSeeder.SeedRoles(roleManager);
-                    await dataSeeder.SeedUsers(userManager);
+                    await dataSeeder.SeedDefaultRole(roleManager);
+                    await dataSeeder.SeedDefaultUser(userManager);
                 }
                 catch (Exception ex)
                 {

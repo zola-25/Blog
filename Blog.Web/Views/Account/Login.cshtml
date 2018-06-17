@@ -1,26 +1,37 @@
 ﻿@model LoginRequest
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
+<div class="row">
 
-<form method="post" asp-controller="Admin" asp-action="Login">
 
-    <div asp-validation-summary="ModelOnly"></div>
+    <form method="post" asp-controller="Account" asp-action="Login">
 
-    <label asp-for="Username"></label>
-    <input asp-for="Username" />
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <h3>Login</h3>
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
+            <div asp-validation-summary="ModelOnly"></div>
 
-    <label asp-for="RememberMe"></label>
-    <input asp-for="RememberMe" />
+            <div class="form-group">
+                <label asp-for="UsernameOrEmail"></label>
+                <input asp-for="UsernameOrEmail" class="form-control" />
+            </div>
 
-    <input asp-for="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+            </div>
 
-    <input type="submit" value="Login" />
+            <div class="form-group">
+                <label asp-for="RememberMe"></label>
+                <input asp-for="RememberMe" />
+            </div>
 
-</form>
+            <input asp-for="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
+
+            <input type="submit" value="Login" class="btn-block" />
+        </div>
+
+    </form>
+</div>

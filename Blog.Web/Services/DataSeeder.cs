@@ -1,5 +1,6 @@
 ﻿using Blog.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,30 +27,32 @@ namespace Blog.Web.Services
             }
         }
 
-        public async Task SeedRoles(RoleManager<BlogRole> roleManager)
+        public async Task SeedDefaultRole(RoleManager<BlogAdminRole> roleManager)
         {
             if (!await roleManager.RoleExistsAsync("Administrator"))
             {
-                var role = new BlogRole();
+                var role = new BlogAdminRole();
                 role.Name = "Administrator";
                 await roleManager.CreateAsync(role);
             }
         }
 
-        public async Task SeedUsers(UserManager<BlogUser> userManager)
+        public async Task SeedDefaultUser(UserManager<BlogAdminUser> userManager)
         {
             if (await userManager.FindByNameAsync("DefaultUser") == null)
             {
-                var user = new BlogUser();
+                var user = new BlogAdminUser();
                 user.UserName = "DefaultUser";
                 user.Email = "defaultuser@localhost";
 
-                var result = await userManager.CreateAsync(user, "password_goes_here");
+                var result = await userManager.CreateAsync(user, "Password_123");
 
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Administrator");
                 }
+                else
+                    throw new Exception("Could not see default user");
             }
 
         }
