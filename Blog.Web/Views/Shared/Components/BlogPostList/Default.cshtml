@@ -1,11 +1,29 @@
 ﻿@model IEnumerable<Post> 
 
-<h3>Posts</h3>
-<div class="blogPostList">
+<h4>Previous Posts</h4>
+<div class="post-list">
     <ul>
         @foreach (var blogPost in Model)
-        {
-            <li><a asp-controller="Blog" asp-action="Post" asp-route-permalink="@blogPost.Permalink">@blogPost.Title</a></li>
-        }
+    {
+        <li><a class="post-list-item @(blogPost.LatestFive ? "latest-five" : "hidden")" asp-controller="Blog" asp-action="Post" asp-route-permalink="@blogPost.Permalink">@blogPost.Title - @blogPost.CreationDate.ToString("dd MMM yy")</a></li>
+    }
+        <li><a class="view-all" href="javascript::void"><i>..view all</i></a></li>
     </ul>
 </div>
+
+@section Scripts 
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.post-list .view-all').onclick(function () {
+                if ($('.post-list-item.hidden').len > 0) {
+                    $('.post-list-item.hidden').toggleClass("hidden");
+                    $('.post-list .view-all i').text("..collapse");
+                } else {
+                    $('.post-list-item').not('.latest-five').toggleClass("hidden");
+                    $('.post-list .view-all i').text("..view all");
+                }
+            });
+        });
+    </script>
+}

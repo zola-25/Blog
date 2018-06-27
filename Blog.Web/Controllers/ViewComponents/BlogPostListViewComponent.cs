@@ -25,9 +25,14 @@ namespace Blog.Controllers.ViewComponents
             var viewPosts = await _blogContext
                 .Posts
                 .OrderByDescending(c => c.CreationDate)
-                .Take(5)
                 .Select(c => _mapper.Map<ViewModels.Post>(c))
                 .ToListAsync();
+
+            foreach (var viewPost in viewPosts.Take(5))
+            {
+                viewPost.LatestFive = true;
+            }
+            
 
             return View(viewPosts);
         }

@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_DefaultHead")
+</head>
+<body>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-xs-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_DefaultScripts")
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

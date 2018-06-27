@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_DefaultHead")
+</head>
+<body>
+    @Html.Partial("_Nav")
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-9 col-xs-12">
+                @RenderBody()
+            </div>
+            <div class="col-md-3 col-xs-12">
+                @Html.Partial("_Sidebar")
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; 2018 - Mike's Blog</p>
+        </footer>
+    </div>
+
+    @Html.Partial("_DefaultScripts")
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
