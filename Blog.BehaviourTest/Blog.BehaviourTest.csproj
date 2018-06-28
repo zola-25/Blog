@@ -94,7 +94,6 @@
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="NuGet.Config" />
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
     <None Include="Search.feature">
