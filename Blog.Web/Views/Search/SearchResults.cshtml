@@ -1,29 +1,29 @@
 ﻿
 @{
     ViewData["Title"] = "SearchResults";
-    Layout = "~/Views/Shared/Layouts/_Layout.cshtml";
+    Layout = "~/Views/Shared/Layouts/_DefaultLayout.cshtml";
 }
 
 @model IEnumerable<SearchResult>
 
 @if (!Model.Any())
 {
-    <h2>No results available for your search</h2>
+    <h3>No results available for your search</h3>
 }
 else
 {
     @foreach (var result in Model)
     {
 
-        <h2>Search Results</h2>
+        <h3>Search Results</h3>
 
-        <div class="searchResult">
+        <div class="search-result">
 
-            <h3>
+            <h4>
                 <small>@result.Post.CreationDate.ToString("dd MMM yyyy")</small>
                 <br />
                 @result.Post.Title
-            </h3>
+            </h4>
             <p>@result.SnapshotText</p>
         </div>
     }

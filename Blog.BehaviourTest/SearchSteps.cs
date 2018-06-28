@@ -23,28 +23,28 @@ namespace Blog.BehaviourTest
         [Given(@"I have entered (.*) into the search box")]
         public void GivenIHaveEnteredIntoTheSearchBox(string searchText)
         {
-            var searchInput = _webDriver.FindElement(By.CssSelector(".blogPostSearchBox input[type=text]"));
+            var searchInput = _webDriver.FindElement(By.CssSelector(".post-search-box input[type=text]"));
             searchInput.SendKeys(searchText);
         }
 
         [When(@"I click search submit")]
         public void AndIClickSearchSubmit()
         {
-            var searchSubmit = _webDriver.FindElement(By.CssSelector(".blogPostSearchBox input[type=submit]"));
+            var searchSubmit = _webDriver.FindElement(By.CssSelector(".post-search-box input[type=submit]"));
             searchSubmit.Click();
         }
         
-        [Then(@"The h2 text should equal (.*)")]
+        [Then(@"The h3 text should equal (.*)")]
         public void ThenTheH2HeaderShouldBe(string expectedText)
         {
-            var h2element = _webDriver.FindElement(By.CssSelector("h2"));
+            var h2element = _webDriver.FindElement(By.CssSelector("h3"));
             Assert.AreEqual(expectedText, h2element.Text);
         }
 
-        [Then(@"The search result h3 text should contain (.*)")]
+        [Then(@"The search result h4 text should contain (.*)")]
         public void ThenSearchResultH3TextShouldContain(string expectedText)
         {
-            var searchResultH3 = _webDriver.FindElement(By.CssSelector(".searchResult h3"));
+            var searchResultH3 = _webDriver.FindElement(By.CssSelector(".search-result h4"));
             Assert.IsTrue(searchResultH3.Text.Contains(expectedText));
         }
     }
