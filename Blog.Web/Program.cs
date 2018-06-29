@@ -1,6 +1,11 @@
 ﻿using Blog.Web.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
+using System;
 
 namespace Blog
 {
@@ -15,10 +20,23 @@ namespace Blog
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseApplicationInsights()
-                .UseStartup<Startup>()
-                .Build();
-
-       
+             .ConfigureAppConfiguration((ctx, builder) =>
+             {
+                 var keyVaultEndpoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
+                 if (!string.IsNullOrEmpty(keyVaultEndpoint))
+                 {
+                     var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                     var keyVaultClient = new KeyVaultClient(
+                         new KeyVaultClient.AuthenticationCallback(
+                             azureServiceTokenProvider.KeyVaultTokenCallback));
+                     builder.AddAzureKeyVault(
+                         keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
+                 }
+             })
+            .UseApplicationInsights()
+            .UseStartup<Startup>()
+            .Build();
     }
+
+    
 }

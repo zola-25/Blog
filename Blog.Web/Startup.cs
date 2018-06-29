@@ -23,25 +23,34 @@ namespace Blog
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
         {
             services.AddMvc();
             services.AddTransient<ISnapshotText, SnapshotText>();
-            services.AddAutoMapper(c=> { c.AddProfile(new MappingProfile()); });
+            services.AddAutoMapper(c => { c.AddProfile(new MappingProfile()); });
             services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan  = new TimeSpan(0,20,0);
+                options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 20, 0);
 
             })
             .AddEntityFrameworkStores<BlogDbContext>()
             .AddDefaultTokenProviders();
 
-            var connection = Configuration.GetConnectionString("BlogDatabase");
-            services.AddDbContext<Data.Models.BlogDbContext>(options => options.UseSqlServer(connection));
+            string connectionString;
+            if (env.IsProduction())
+            {
+                connectionString = Configuration.GetConnectionString("BLOG-WEB-CONNECTIONSTRING-PROD");
+            }
+            else
+            {
+                connectionString = Configuration.GetConnectionString("BLOG-WEB-CONNECTIONSTRING-DEV");
+            }
+
+            services.AddDbContext<Data.Models.BlogDbContext>(options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
