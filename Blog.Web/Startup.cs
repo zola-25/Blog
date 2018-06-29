@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Blog.Data;
 using Blog.Data.Models;
 using Blog.Web.Services;
 using Blog.Web;
@@ -15,15 +14,17 @@ namespace Blog
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            CurrentEnvironment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IHostingEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddTransient<ISnapshotText, SnapshotText>();
@@ -41,7 +42,7 @@ namespace Blog
             .AddDefaultTokenProviders();
 
             string connectionString;
-            if (env.IsProduction())
+            if (CurrentEnvironment.IsProduction())
             {
                 connectionString = Configuration.GetConnectionString("BLOG-WEB-CONNECTIONSTRING-PROD");
             }
