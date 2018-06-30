@@ -146,9 +146,6 @@ bower_components/
 appsettings.Development.json
 
 
-# EF Migrations
-Blog.Data/Migrations/
-
 # Windows Azure Build Output
 csx
 *.build.csdef
