@@ -20,19 +20,19 @@ namespace Blog
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-             .ConfigureAppConfiguration((ctx, builder) =>
-             {
-                 var keyVaultEndpoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
-                 if (!string.IsNullOrEmpty(keyVaultEndpoint))
-                 {
-                     var azureServiceTokenProvider = new AzureServiceTokenProvider();
-                     var keyVaultClient = new KeyVaultClient(
-                         new KeyVaultClient.AuthenticationCallback(
-                             azureServiceTokenProvider.KeyVaultTokenCallback));
-                     builder.AddAzureKeyVault(
-                         keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
-                 }
-             })
+             //.ConfigureAppConfiguration((ctx, builder) =>
+             //{
+             //    var keyVaultEndpoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
+             //    if (!string.IsNullOrEmpty(keyVaultEndpoint))
+             //    {
+             //        var azureServiceTokenProvider = new AzureServiceTokenProvider();
+             //        var keyVaultClient = new KeyVaultClient(
+             //            new KeyVaultClient.AuthenticationCallback(
+             //                azureServiceTokenProvider.KeyVaultTokenCallback));
+             //        builder.AddAzureKeyVault(
+             //            keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
+             //    }
+             //})
             .UseApplicationInsights()
             .UseStartup<Startup>()
             .Build();
