@@ -1,0 +1,17 @@
+body {
+  padding-top: 50px;
+  padding-bottom: 20px; }
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.post-list ul {
+  padding: 0;
+  list-style-type: none; }
+
+.sidebar-links ul {
+  padding: 0;
+  list-style-type: none; }

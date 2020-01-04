@@ -26,9 +26,12 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(config=> {
+                //config.Filters.Add(typeof(CustomAuthorizationFilter));
+                config.EnableEndpointRouting = false;
+            });
             services.AddTransient<ISnapshotText, SnapshotText>();
-            services.AddAutoMapper(c => { c.AddProfile(new MappingProfile()); });
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
@@ -60,7 +63,6 @@ namespace Blog
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
