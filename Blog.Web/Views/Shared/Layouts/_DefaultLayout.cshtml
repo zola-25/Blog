@@ -1,26 +1,69 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @Html.Partial("_DefaultHead")
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mike's Blog - @ViewData["Title"]</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" integrity="sha384-FckWOBo7yuyMS7In0aXZ0aoVvnInlnFMwCv77x9sZpFgOonQgnBj1uLwenWVtsEj" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" integrity="sha384-tuwm8iDIss4OBEs0iU9s0ONSsiCuS39offygIe6MJIo8qaGLBxwJ1v+u8eK0Ltgg" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
 </head>
 <body>
-    @Html.Partial("_Nav")
+    <partial name="_Nav" />
+
     <div class="container body-content">
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 @RenderBody()
             </div>
             <div class="col-md-3 col-xs-12">
-                @Html.Partial("_Sidebar")
+                <partial name="_SideBar" />
+
             </div>
         </div>
         <hr />
         <footer>
-            <p>&copy; 2018 - Mike's Blog</p>
+            <p>&copy; @DateTime.Now.Year - Mike Towill</p>
         </footer>
     </div>
 
-    @Html.Partial("_DefaultScripts")
+
+
+    <environment include="Development">
+
+        <script src="https://unpkg.com/react@16.12.0/umd/react.development.js" integrity="sha384-5l9PFjfzS2E5Gx88inFinqBHRa+gZtXaPxAFp9a54+T34j/Mp4dKFndKLBWJs9dz" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js" integrity="sha384-5vT93CaqUB/QNpEQJyMKmL9addtKArGCt7GiCwWU1jsfJ66C46aSut0QuwgEwH44" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha384-fJU6sGmyn07b+uD1nMk7/iSb4yvaowcueiQhfVgQuD98rfva8mcr1eSvjchfpMrH" crossorigin="anonymous"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js" integrity="sha384-rkSGcquOAzh5YMplX4tcXMuXXwmdF/9eRLkw/gNZG+1zYutPej7fxyVLiOgfoDgi" crossorigin="anonymous"></script>
+
+        <script src="~/lib/tinymce/tinymce.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </environment>
+    <environment exclude="Development">
+
+        <script src="https://unpkg.com/react@16.12.0/umd/react.production.min.js" integrity="sha384-3LaF+GDeugL4KEmnsbb+HuxO42PMnX+W5VYrAF98SHC8Wq47T6D7WpBckxQuazOA" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js" integrity="sha384-04YC4/4bnGBjX66zkPM2372a4vmHIXVxQwIjLC/NWcMnEAcfYLASjt3cizYDmWBJ" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/tinymce/tinymce.min.js" asp-append-version="true"></script>
+
+    </environment>
 
     @RenderSection("Scripts", required: false)
 </body>

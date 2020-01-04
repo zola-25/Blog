@@ -142,8 +142,6 @@ node_modules/
 # Bower
 bower_components/
 
-#App settings
-appsettings.Development.json
 
 
 # Windows Azure Build Output
@@ -228,5 +226,3 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
-appsettings.Development.json
-Blog.Web/wwwroot/lib/

@@ -1,4 +1,15 @@
-﻿body {
+﻿$dark: #010A3D;
+
+@import url('https://fonts.googleapis.com/css?family=Helvetica');
+$font-family-sans-serif: "Helvetica", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+$main-content-padding: 0.5rem;
+
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
