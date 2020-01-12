@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Blog
 {
@@ -26,6 +27,9 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddMvc(config=> {
                 //config.Filters.Add(typeof(CustomAuthorizationFilter));
                 config.EnableEndpointRouting = false;
@@ -69,6 +73,8 @@ namespace Blog
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
@@ -79,7 +85,6 @@ namespace Blog
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{permalink?}");
                 
-                ;
             });
         }
     }
