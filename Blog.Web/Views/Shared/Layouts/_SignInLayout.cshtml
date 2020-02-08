@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @Html.Partial("_DefaultHead")
+    @Html.PartialAsync("_DefaultHead")
 </head>
 <body>
     <div class="container body-content">
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    @Html.Partial("_DefaultScripts")
+    @Html.PartialAsync("_DefaultScripts")
 
     @RenderSection("Scripts", required: false)
 </body>

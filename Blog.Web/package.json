@@ -3,7 +3,7 @@
   "name": "asp.net",
   "private": true,
   "devDependencies": {
-    "bootstrap": "3.3.5",
+    "bootstrap": "4.3.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -11,7 +11,6 @@
     "gulp-htmlmin": "^4.0.0",
     "gulp-sass": "^4.0.1",
     "gulp-uglify": "^3.0.0",
-    "jquery": "2.1.4",
     "merge-stream": "^1.0.1",
     "tinymce": "4.7.7"
   },

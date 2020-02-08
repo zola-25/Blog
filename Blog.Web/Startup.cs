@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Blog
 {
@@ -29,7 +31,9 @@ namespace Blog
             services.AddMvc(config=> {
                 //config.Filters.Add(typeof(CustomAuthorizationFilter));
                 config.EnableEndpointRouting = false;
-            });
+            })
+            .AddRazorRuntimeCompilation();
+                
             services.AddTransient<ISnapshotText, SnapshotText>();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {
@@ -39,10 +43,26 @@ namespace Blog
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 20, 0);
+                options.User.RequireUniqueEmail = true;
 
             })
             .AddEntityFrameworkStores<BlogDbContext>()
             .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+                options.AccessDeniedPath = new PathString("/Forbidden");
+                options.LoginPath = new PathString("/Account/SignIn");
+                options.LogoutPath = new PathString("/Account/SignOut");
+                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                
+            });
 
             string connectionString;
             if (CurrentEnvironment.IsProduction())
@@ -58,8 +78,12 @@ namespace Blog
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BlogDbContext dbContext)
         {
+            if (!env.IsDevelopment())
+            {
+                app.UseHsts();
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,6 +92,9 @@ namespace Blog
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseHttpsRedirection();
+
 
             app.UseStaticFiles();
 
@@ -79,8 +106,10 @@ namespace Blog
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{permalink?}");
                 
-                ;
             });
+
+            dbContext.Database.Migrate();
+
         }
     }
 }

@@ -1,29 +1,14 @@
-﻿<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Mike's Blog</a>
-        </div>
+﻿<nav class="navbar navbar-expand-sm navbar-light bg-light">
+
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand">Solores Software</a>
+
         <div class="navbar-collapse collapse">
             <environment include="Development">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a></li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
-                    }
-                    else
-                    {
-                        <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    }
-
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a asp-controller="Admin" asp-action="Index">Admin</a>
+                    </li>
                 </ul>
             </environment>
         </div>
-    </div>
 </nav>

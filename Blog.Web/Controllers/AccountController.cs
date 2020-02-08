@@ -21,27 +21,27 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = "")
+        public IActionResult SignIn(string returnUrl = "")
         {
             var model = new LoginRequest { ReturnUrl = returnUrl };
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Logout()
+        public IActionResult SignOut()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfirmLogout()
+        public async Task<IActionResult> ConfirmSignOut()
         {
             await _signInManager.SignOutAsync();
-            return View("LogoutSuccess");
+            return View("SignOutSuccess");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> SignIn(LoginRequest loginRequest)
         {
 
             if (ModelState.IsValid)

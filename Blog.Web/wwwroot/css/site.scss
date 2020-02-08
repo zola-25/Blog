@@ -1,4 +1,10 @@
-﻿body {
+﻿
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -18,4 +24,13 @@
 .sidebar-links ul {
     padding: 0;
     list-style-type: none;
+    text-align: center;
+    li {
+        margin: 10px;
+    }
+}
+
+.linkedin-logo {
+    max-width: 210px;
+    height: auto;
 }
