@@ -1,4 +1,4 @@
-﻿using Blog.ViewModels;
+﻿using Blog.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers.ViewComponents

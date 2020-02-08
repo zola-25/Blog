@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Blog.ViewModels
+﻿namespace Blog.Web.ViewModels
 {
     public class SearchResult
     {
-        public Post Post { get; set; }
+        public BlogPost Post { get; set; }
         public string SnapshotText { get; set; }
     }
 }

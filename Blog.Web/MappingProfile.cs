@@ -10,7 +10,9 @@ namespace Blog.Web
     {
         public MappingProfile()
         {
-            CreateMap<Data.Models.Post, ViewModels.Post>();
+            CreateMap<Data.Models.Post, ViewModels.BlogPost>();
+            CreateMap<Data.Models.Post, ViewModels.BlogPostLink>();
+
             CreateMap<ViewModels.NewPost, Data.Models.Post>();
         }
 

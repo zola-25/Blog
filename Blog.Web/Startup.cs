@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using Blog.Data.Models;
 using Blog.Web.Services;
-using Blog.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using Microsoft.AspNetCore.Http;
 
-namespace Blog
+namespace Blog.Web
 {
     public class Startup
     {
@@ -30,16 +30,23 @@ namespace Blog
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddMvc(config=> {
+            var mvcBuilder = services.AddMvc(config =>
+            {
                 //config.Filters.Add(typeof(CustomAuthorizationFilter));
                 config.EnableEndpointRouting = false;
             });
+
+            #if DEBUG
+                mvcBuilder.AddRazorRuntimeCompilation();
+            #endif
+
             services.AddTransient<ISnapshotText, SnapshotText>();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
+                
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 20, 0);
@@ -47,6 +54,21 @@ namespace Blog
             })
             .AddEntityFrameworkStores<BlogDbContext>()
             .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+                options.AccessDeniedPath = new PathString("/Forbidden");
+                options.LoginPath = new PathString("/Account/SignIn");
+                options.LogoutPath = new PathString("/Account/SignOut");
+                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                
+            });
 
             string connectionString;
             if (CurrentEnvironment.IsProduction())

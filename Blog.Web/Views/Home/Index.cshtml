@@ -1,2 +1,4 @@
 ﻿
-<app asp-prerender-module="wwwroot/dist/bundle.dev.js">Loading...</app>
+@model Blog.Web.ViewModels.Home
+
+<app asp-prerender-module="wwwroot/dist/bundle.dev.js" asp-prerender-data=@Model>Loading...</app>

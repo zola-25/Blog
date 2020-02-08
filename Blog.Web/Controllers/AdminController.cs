@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blog.ViewModels;
 using Blog.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Blog.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Blog.Controllers
+namespace Blog.Web.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
@@ -29,7 +29,7 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Admin(NewPost newPost)
+        public async Task<IActionResult> Create(NewPost newPost)
         {
             if(_blogContext.Posts.Any(c=>c.Permalink==newPost.Permalink))
             {
@@ -44,7 +44,7 @@ namespace Blog.Controllers
                 await _blogContext.SaveChangesAsync();
                 return RedirectToAction("Post", "Home", new { permalink = dbPost.Permalink });
             }
-            return View(newPost);
+            return BadRequest(ModelState);
         }
     }
 }

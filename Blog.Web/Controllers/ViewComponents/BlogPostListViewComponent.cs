@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Blog.Data.Models;
-using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Web.ViewModels;
 
 namespace Blog.Controllers.ViewComponents
 {
@@ -25,7 +25,7 @@ namespace Blog.Controllers.ViewComponents
             var viewPosts = await _blogContext
                 .Posts
                 .OrderByDescending(c => c.CreationDate)
-                .Select(c => _mapper.Map<ViewModels.Post>(c))
+                .Select(c => _mapper.Map<BlogPost>(c))
                 .ToListAsync();
 
             foreach (var viewPost in viewPosts.Take(5))

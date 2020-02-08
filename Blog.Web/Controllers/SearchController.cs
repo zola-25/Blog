@@ -1,12 +1,12 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Blog.ViewModels;
 using Blog.Data.Models;
 using AutoMapper;
 using Blog.Web.Services;
+using Blog.Web.ViewModels;
 using Microsoft.AspNetCore.Routing;
 
-namespace Blog.Controllers
+namespace Blog.Web.Controllers
 {
     public class SearchController : Controller
     {
@@ -32,7 +32,7 @@ namespace Blog.Controllers
             var posts = _bloggingContext
                 .Posts
                 .Where(c => c.Html.Contains(searchRequest.Text) || c.Title.Contains(searchRequest.Text));
-            var searchResults = posts.Select(c => new SearchResult() { Post = _mapper.Map<Data.Models.Post, ViewModels.Post>(c), SnapshotText = _snapshotText.GetFirstNCharacters(c.Html, 200) + " ..." });
+            var searchResults = posts.Select(c => new SearchResult() { Post = _mapper.Map<Data.Models.Post, BlogPost>(c), SnapshotText = _snapshotText.GetFirstNCharacters(c.Html, 200) + " ..." });
             return View(searchResults);
         }
 

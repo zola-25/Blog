@@ -1,12 +1,8 @@
 ﻿using Blog.Web.Services;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
-using Microsoft.Extensions.Configuration;
-using System;
 
-namespace Blog
+namespace Blog.Web
 {
     public class Program
     {

@@ -6,10 +6,11 @@ import { createServerRenderer, RenderResult } from 'aspnet-prerendering';
 import {StaticRouter, Route} from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
-import Main from './Main.jsx';
+import Page from './Page.jsx';
 
 import BlogPostContent from './blogPostContent.jsx';
 import AboutContent from './AboutContent.jsx';
+
 
 global.React = React;
 
@@ -76,19 +77,22 @@ export default createServerRenderer(params => {
           initialEntries: [urlAfterBasename]
         });
 
-
         var result = ReactDOMServer.renderToString(
+
             <StaticRouter basename={basename} context={routerContext} location={params.location.path}>
                 <Route path='/' exact >
-                    <Main blogPostLinks={data} >
-                        <BlogPostContent blogPost={blogPost} />    
-                    </Main>
+
+                    <Page {...params.data} >
+                        <BlogPostContent blogPost={params.data.blogPost} />    
+                    </Page>
+
                 </Route>
                 <Route path='/About' exact>
-                    <Main blogPostLinks={data} >
+                    <Page {...params.data}>
                         <AboutContent />    
-                    </Main>
+                    </Page>
                 </Route>
+
             </StaticRouter>
         );
     

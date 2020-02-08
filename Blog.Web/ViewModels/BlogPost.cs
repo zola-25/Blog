@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Blog.ViewModels
+namespace Blog.Web.ViewModels
 {
-    public class Post
+    public class BlogPost
     {
         public int PostId { get; set; }
         public string Title { get; set; }

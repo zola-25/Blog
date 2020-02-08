@@ -1,4 +1,4 @@
-﻿namespace Blog.ViewModels
+﻿namespace Blog.Web.ViewModels
 {
     public class SearchRequest
     {
