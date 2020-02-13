@@ -7020,19 +7020,12 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6; } }
 
-body {
-  padding-top: 50px;
-  padding-bottom: 20px; }
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-  padding-left: 15px;
-  padding-right: 15px; }
-
 .post-list ul {
   padding: 0;
   list-style-type: none; }
+
+.sidebar, .blogPost, .nav-content {
+  padding: 10px; }
 
 .sidebar-links ul {
   padding: 0;

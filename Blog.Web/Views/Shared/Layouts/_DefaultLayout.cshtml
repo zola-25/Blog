@@ -1,17 +1,42 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @Html.Partial("_DefaultHead")
+    <partial name="_DefaultHead" />
+
 </head>
 <body>
-    @Html.Partial("_Nav")
-    <div class="container body-content">
+
+    <nav class="navbar navbar-expand-sm bg-dark ">
+
+        <div class="container px-4">
+            @*https://getbootstrap.com/docs/4.0/components/navbar/#containers*@
+
+
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand font-weight-bold">Solores Software</a>
+
+                <div class="navbar-collapse collapse">
+                    <environment include="Development">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a asp-controller="Admin" asp-action="Index">Admin</a>
+                            </li>
+                        </ul>
+                    </environment>
+                </div>
+            </div>
+    </nav>
+
+    <div class="container">
+
+
+
         <div class="row">
             <div class="col-md-9 col-xs-12">
                 @RenderBody()
             </div>
             <div class="col-md-3 col-xs-12">
-                @Html.Partial("_Sidebar")
+                <partial name="_Sidebar" />
+
             </div>
         </div>
         <hr />
@@ -22,7 +47,7 @@
         </footer>
     </div>
 
-    @Html.Partial("_DefaultScripts")
+    <partial name="_DefaultScripts" />
 
     @RenderSection("Scripts", required: false)
 </body>

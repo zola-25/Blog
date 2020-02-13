@@ -1,11 +1,10 @@
 ﻿@model SearchRequest
 
-<h4>Search</h4>
 <div class="post-search-box">
     <form asp-controller="Search" asp-action="SearchRedirect">
         <div class="form-group">
-            <input asp-for="Text" class="form-control" />
+            <input asp-for="Text" class="form-control" placeholder="Search articles" />
         </div>
-        <input type="submit" class="btn btn-block" value="Search" />
+        <input type="submit" class="btn btn-outline-secondary btn-block" value="Search" />
     </form>
 </div>

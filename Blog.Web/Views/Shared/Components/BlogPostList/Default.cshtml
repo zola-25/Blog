@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Post> 
 
-<h4>Previous Posts</h4>
-<div class="post-list">
-    <ul>
-        @foreach (var blogPost in Model)
-    {
-        <li><a class="post-list-item @(blogPost.LatestFive ? "latest-five" : "hidden")" asp-controller="Blog" asp-action="Post" asp-route-permalink="@blogPost.Permalink">@blogPost.Title - @blogPost.CreationDate.ToString("dd MMM yy")</a></li>
-    }
-        <li><a class="view-all" href="javascript::void"><i>..view all</i></a></li>
-    </ul>
-</div>
+    <div class="post-list">
+        <h5 class="text-center">Articles</h5>
+
+        <ul>
+            @foreach (var blogPost in Model)
+            {
+                <li><a class="post-list-item @(blogPost.LatestFive ? "latest-five" : "hidden")" asp-controller="Blog" asp-action="Post" asp-route-permalink="@blogPost.Permalink">@blogPost.Title - @blogPost.CreationDate.ToString("dd MMM yy")</a></li>
+            }
+            @if(Model.Count() > 5) {
+                <li><a class="view-all" href="javascript::void"><i>..view all</i></a></li>
+            }
+        </ul>
+    </div>
 
 @section Scripts 
 {
