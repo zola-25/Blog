@@ -4,20 +4,22 @@
 <form method="post" asp-action="Admin" asp-controller="Blog">
     <div class="form-group">
         <p asp-validation-for="Title"></p>
-        <label for="Title">Title</label>
+        <label for="Title" class="font-weight-bold">Title</label>
         <input asp-for="Title" class="form-control" placeholder="Title">
     </div>
     <div class="form-group">
         <p asp-validation-for="Permalink"></p>
-        <label for="Permalink">Permalink</label>
+        <label for="Permalink" class="font-weight-bold">Permalink</label>
         <input asp-for="Permalink" class="form-control" placeholder="permalink">
     </div>
     <div class="form-group">
         <p asp-validation-for="Html"></p>
-        <label for="Html">Content</label>
+        <label for="Html" class="font-weight-bold">Content</label>
         <textarea asp-for="Html"></textarea>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <div class="text-center">
+        <button type="submit" class="btn btn-outline-secondary">Submit</button>
+    </div>
 </form>
 
 

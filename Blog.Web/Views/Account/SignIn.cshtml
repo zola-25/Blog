@@ -4,29 +4,32 @@
     Layout = "Layouts/_SignInLayout";
 }
 
-<form method="post" asp-controller="Account" asp-action="SignIn">
+<div class="signIn m-5 ">
+    <form method="post" asp-controller="Account" asp-action="SignIn">
 
-    <h2>Login</h2>
+        <h2 class="text-center m-3">Sign In</h2>
 
-    <div asp-validation-summary="ModelOnly"></div>
 
-    <div class="form-group">
-        <label asp-for="UsernameOrEmail"></label>
-        <input asp-for="UsernameOrEmail" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+        </div>
 
-    <div class="form-group">
-        <label asp-for="RememberMe"></label>
-        <input asp-for="RememberMe" />
-    </div>
+        <div class="form-group">
+            <label asp-for="RememberMe" class="form-check-label"></label>
+            <input asp-for="RememberMe" class="form-check-inline"/>
+        </div>
 
-    <input asp-for="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
+        <input asp-for="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
 
-    <input type="submit" value="Login" class="btn btn-block" />
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-</form>
+        <input type="submit" value="Login" class="btn btn-block btn-outline-secondary" />
+
+    </form>
+</div>

@@ -67,11 +67,11 @@ namespace Blog
             string connectionString;
             if (CurrentEnvironment.IsProduction())
             {
-                connectionString = Configuration.GetConnectionString("BLOG-WEB-CONNECTIONSTRING-PROD");
+                connectionString = Configuration.GetValue<string>("BLOG_CONNECTIONSTRING_PROD"); 
             }
             else
             {
-                connectionString = Configuration.GetConnectionString("BLOG-WEB-CONNECTIONSTRING-DEV");
+                connectionString = Configuration.GetValue<string>("BLOG_CONNECTIONSTRING_DEV");
             }
 
             services.AddDbContext<Data.Models.BlogDbContext>(options => options.UseSqlServer(connectionString));
@@ -107,8 +107,8 @@ namespace Blog
                     template: "{controller=Home}/{action=Index}/{permalink?}");
                 
             });
-
             dbContext.Database.Migrate();
+
 
         }
     }

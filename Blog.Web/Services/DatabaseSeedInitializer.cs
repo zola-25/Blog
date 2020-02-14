@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Blog.Web.Services
 {
@@ -20,9 +21,10 @@ namespace Blog.Web.Services
                     var dbContext = scope.ServiceProvider.GetService<BlogDbContext>();
                     var roleManager = scope.ServiceProvider.GetService<RoleManager<BlogAdminRole>>();
                     var userManager = scope.ServiceProvider.GetService<UserManager<BlogAdminUser>>();
+                    var configuration = scope.ServiceProvider.GetService<IConfiguration>();
 
 
-                    var dataSeeder = new DataSeeder();
+                    var dataSeeder = new DataSeeder(configuration);
                     dataSeeder.SeedPosts(dbContext);
                     await dataSeeder.SeedDefaultRole(roleManager);
                     await dataSeeder.SeedDefaultUser(userManager);

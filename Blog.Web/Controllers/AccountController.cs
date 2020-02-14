@@ -47,13 +47,13 @@ namespace Blog.Web.Controllers
             if (ModelState.IsValid)
             {
 
-                var userByEmail = await _userManager.FindByEmailAsync(loginRequest.UsernameOrEmail);
+                var userByEmail = await _userManager.FindByEmailAsync(loginRequest.Email);
 
                 Microsoft.AspNetCore.Identity.SignInResult result;
                 if(userByEmail == null) // if can't find user by email address, assumed they provided their username
                 {
                     result = await _signInManager.PasswordSignInAsync(
-                        loginRequest.UsernameOrEmail,
+                        loginRequest.Email,
                         loginRequest.Password,
                         loginRequest.RememberMe,
                         false);                   

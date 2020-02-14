@@ -7021,10 +7021,9 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 .post-list ul {
-  padding: 0;
   list-style-type: none; }
 
-.sidebar, .blogPost, .nav-content {
+.sidebar, .blogPost, .nav-content, .search-results {
   padding: 10px; }
 
 .sidebar-links ul {

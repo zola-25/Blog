@@ -5,9 +5,9 @@ namespace Blog.ViewModels
     public class LoginRequest
     {
         [DataType(DataType.Text)]
-        [Display(Name = "Username or Email Address")]
+        [Display(Name = "Email Address")]
         [Required]
-        public string UsernameOrEmail { get; set; }
+        public string Email { get; set; }
 
         [DataType(DataType.Password)]
         [Required]

@@ -6,25 +6,34 @@
 
 @model IEnumerable<SearchResult>
 
-@if (!Model.Any())
-{
-    <h3>No results available for your search</h3>
-}
-else
-{
-    @foreach (var result in Model)
+<div class="search-results">
+    @if (!Model.Any())
     {
-
-        <h3>Search Results</h3>
-
-        <div class="search-result">
-
-            <h4>
-                <small>@result.Post.CreationDate.ToString("dd MMM yyyy")</small>
-                <br />
-                @result.Post.Title
-            </h4>
-            <p>@result.SnapshotText</p>
-        </div>
+        <h3>No results available for your search</h3>
     }
-}
+    else
+    {
+        @foreach (var result in Model)
+        {
+
+            <h3>Search Results</h3>
+
+            <div class="search-result">
+                <div class="card">
+                    <div class="card-header">
+                        <a asp-controller="Home" asp-action="Post" asp-fragment="/@result.Post.Permalink">@result.Post.Title</a>
+                    </div>
+
+                    <div class="card-body">
+
+                        <p class="card-text">@result.SnapshotText</p>
+
+                        <small class="text-secondary">@result.Post.CreationDate.ToString("d MMM yyyy")</small>
+
+                    </div>
+                </div>
+
+                </div>
+        }
+    }
+</div>

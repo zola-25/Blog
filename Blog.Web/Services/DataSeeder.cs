@@ -1,5 +1,6 @@
 ﻿using Blog.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,13 @@ namespace Blog.Web.Services
 {
     public class DataSeeder
     {
+        private readonly IConfiguration _configuration;
+
+        public DataSeeder(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void SeedPosts(BlogDbContext context)
         {
             if (!context.Posts.Any())
@@ -19,7 +27,8 @@ namespace Blog.Web.Services
                     {
                         CreationDate = new System.DateTime(2018,01,01),
                         Html = "<h2>New Blogging Site</h2><p>This is the seed data of the new blog site</p>",
-                        Title = "New Blog Site"
+                        Title = "New Blog Site",
+                        Permalink = "NewBlog"
                     }
                 };
                 context.AddRange(posts);
@@ -39,20 +48,24 @@ namespace Blog.Web.Services
 
         public async Task SeedDefaultUser(UserManager<BlogAdminUser> userManager)
         {
-            if (await userManager.FindByNameAsync("DefaultUser") == null)
+            var adminEmail = _configuration.GetValue<string>("Blog-Admin-Email");
+
+            if (await userManager.FindByEmailAsync(adminEmail) == null)
             {
                 var user = new BlogAdminUser();
-                user.UserName = "DefaultUser";
-                user.Email = "defaultuser@localhost";
+                user.UserName = adminEmail;
+                user.Email = adminEmail;
 
-                var result = await userManager.CreateAsync(user, "Password_123");
+                var adminPassword = _configuration.GetValue<string>("Blog-Admin-Password");
+                
+                var result = await userManager.CreateAsync(user, adminPassword);
 
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Administrator");
                 }
                 else
-                    throw new Exception("Could not see default user");
+                    throw new Exception("Could not seed default user");
             }
 
         }
