@@ -35,6 +35,9 @@ namespace Blog
             .AddRazorRuntimeCompilation();
                 
             services.AddTransient<ISnapshotText, SnapshotText>();
+            services.AddTransient<IDatabaseCreator, DatabaseCreator>();
+            services.AddTransient<DataSeeder>();
+
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {
                 options.Password.RequireDigit = true;
@@ -64,21 +67,13 @@ namespace Blog
                 
             });
 
-            string connectionString;
-            if (CurrentEnvironment.IsProduction())
-            {
-                connectionString = Configuration.GetValue<string>("BLOG_CONNECTIONSTRING_PROD"); 
-            }
-            else
-            {
-                connectionString = Configuration.GetValue<string>("BLOG_CONNECTIONSTRING_DEV");
-            }
+            string connectionString = Configuration.GetValue<string>("BLOG_CONNECTIONSTRING");
 
             services.AddDbContext<Data.Models.BlogDbContext>(options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BlogDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BlogDbContext dbContext, IDatabaseCreator databaseCreator)
         {
             if (!env.IsDevelopment())
             {
@@ -107,8 +102,13 @@ namespace Blog
                     template: "{controller=Home}/{action=Index}/{permalink?}");
                 
             });
-            dbContext.Database.Migrate();
 
+            string connectionString = Configuration.GetValue<string>("BLOG_CONNECTIONSTRING");
+            databaseCreator.CreateDatabase(connectionString);
+            
+            dbContext.Database.Migrate();
+            
+            DataSeeder.Run(app.ApplicationServices).Wait();
 
         }
     }

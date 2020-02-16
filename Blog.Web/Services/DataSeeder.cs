@@ -1,6 +1,7 @@
 ﻿using Blog.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,46 +12,63 @@ namespace Blog.Web.Services
     public class DataSeeder
     {
         private readonly IConfiguration _configuration;
+        private readonly RoleManager<BlogAdminRole> _roleManager;
+        private readonly UserManager<BlogAdminUser> _userManager;
+        private readonly BlogDbContext _dbContext;
 
-        public DataSeeder(IConfiguration configuration)
+        public DataSeeder(IConfiguration configuration, RoleManager<BlogAdminRole> roleManager, UserManager<BlogAdminUser> userManager, BlogDbContext dbContext)
         {
+            _roleManager = roleManager;
+            _userManager = userManager;
+            _dbContext = dbContext;
             _configuration = configuration;
         }
 
-        public void SeedPosts(BlogDbContext context)
+        public static async Task Run(IServiceProvider serviceProvider)
         {
-            if (!context.Posts.Any())
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var instance = serviceScope.ServiceProvider.GetService<DataSeeder>();
+                await instance.SeedDefaultRole();
+                await instance.SeedDefaultUser();
+                await instance.SeedPosts();
+            }
+        }
+
+        public async Task SeedPosts()
+        {
+            if (!_dbContext.Posts.Any())
             {
                 var posts = new List<Post>
                 {
                     new Post
                     {
-                        CreationDate = new System.DateTime(2018,01,01),
-                        Html = "<h2>New Blogging Site</h2><p>This is the seed data of the new blog site</p>",
+                        CreationDate = new System.DateTime(2019,01,01),
+                        Html = "<p>Hello! I'm Mike, a .NET-oriented developer, and this is my tech blog. I'm not usually the blogging type but as a developer you accumulate so much random knowledge that often gets lost or forgotten - it seemed like it was time to start recording some of it, so I can refer back to it, and if it helps anyone else out there even better :) <br/> This is my own blog site that I made for myself in ASP.NET Core MVC and hosted on Azure. It has a few useful features, like a simple search function, and a protected Admin section where the blog site owner can create, save (and in future edit) blog posts. I hope to add new features in the future. <br/><br/> The code hosted on GitHub <a href=\"https://github.com/zola-25/Blog\">here</a>. <br/><br/>To contact me, find my linkedin page on the right. </p>",
                         Title = "New Blog Site",
-                        Permalink = "NewBlog"
+                        Permalink = "/Post/NewBlog"
                     }
                 };
-                context.AddRange(posts);
-                context.SaveChanges();
+                _dbContext.AddRange(posts);
+                await _dbContext.SaveChangesAsync();
             }
         }
 
-        public async Task SeedDefaultRole(RoleManager<BlogAdminRole> roleManager)
+        public async Task SeedDefaultRole()
         {
-            if (!await roleManager.RoleExistsAsync("Administrator"))
+            if (!await _roleManager.RoleExistsAsync("Administrator"))
             {
                 var role = new BlogAdminRole();
                 role.Name = "Administrator";
-                await roleManager.CreateAsync(role);
+                await _roleManager.CreateAsync(role);
             }
         }
 
-        public async Task SeedDefaultUser(UserManager<BlogAdminUser> userManager)
+        public async Task SeedDefaultUser()
         {
             var adminEmail = _configuration.GetValue<string>("Blog-Admin-Email");
 
-            if (await userManager.FindByEmailAsync(adminEmail) == null)
+            if (await _userManager.FindByEmailAsync(adminEmail) == null)
             {
                 var user = new BlogAdminUser();
                 user.UserName = adminEmail;
@@ -58,11 +76,11 @@ namespace Blog.Web.Services
 
                 var adminPassword = _configuration.GetValue<string>("Blog-Admin-Password");
                 
-                var result = await userManager.CreateAsync(user, adminPassword);
+                var result = await _userManager.CreateAsync(user, adminPassword);
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Administrator");
+                    await _userManager.AddToRoleAsync(user, "Administrator");
                 }
                 else
                     throw new Exception("Could not seed default user");

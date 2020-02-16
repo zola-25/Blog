@@ -1,6 +1,9 @@
 ﻿@model Post
 
-<div class="blogPost">
-    <h1>@Model.Title</h1>
-    @Html.Raw(Model.Html)
-</div>
+    <div class="blogPost">
+        <h1 class="text-center mt-4 mb-4">@Model.Title</h1>
+        <br />
+        <br />
+
+        @Html.Raw(Model.Html)
+    </div>

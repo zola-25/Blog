@@ -35,16 +35,16 @@ namespace Blog.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [Route("/Post/{permalink}")]
-        public IActionResult Post(string permalink)
+        [Route("/Post/{urlSegment}")]
+        public IActionResult Post(string urlSegment)
         {
             var dbPost = _blogContext
                 .Posts
-                .Single(c => c.Permalink == permalink);
+                .Single(c => c.Permalink == "/Post/" + urlSegment);
 
             var viewPost = _mapper.Map<Data.Models.Post, ViewModels.Post>(dbPost);
 
-            return View(viewPost);
+            return View("~/Views/Home/Index.cshtml", viewPost);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Blog
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            host.Seed().Wait();
             host.Run();
         }
 
@@ -34,7 +33,7 @@ namespace Blog
                  }
                  else
                  {
-                     throw new ArgumentException("Set environment variable BLOG_KEYVAULT_ENDPOINT and restart application or debugger");
+                     throw new ArgumentException("Set environment variable BLOG_KEYVAULT_ENDPOINT and restart application or IDE");
                  }
 
                  builder.AddEnvironmentVariables();
