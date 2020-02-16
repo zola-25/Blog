@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "gulp-cli": "^2.0.1",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.13"
   }
 }
