@@ -12,7 +12,8 @@
     "gulp-sass": "^4.0.1",
     "gulp-uglify": "^3.0.0",
     "merge-stream": "^1.0.1",
-    "tinymce": "4.9.7"
+    "tinymce": "4.9.7",
+    "clean-css": ">=4.1.11"
   },
   "dependencies": {
     "gulp-cli": "^2.0.1",
