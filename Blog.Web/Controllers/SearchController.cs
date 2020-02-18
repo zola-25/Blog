@@ -35,7 +35,7 @@ namespace Blog.Controllers
             var searchResults = posts.Select(c => 
             new SearchResult() { 
                 Post = _mapper.Map<Data.Models.Post, ViewModels.Post>(c), 
-                SnapshotText = _snapshotText.GetFirstNCharacters(c.Html, 200) + " ..." }
+                SnapshotText = _snapshotText.GetFirstNCharacters(c.Html, 200)}
             );
             return View(searchResults);
         }
