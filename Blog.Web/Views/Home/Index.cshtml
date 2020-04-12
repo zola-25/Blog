@@ -1,9 +1,12 @@
 ﻿@model Post
+@{
+    ViewData["Title"] = Model.Title;
+}
 
-    <div class="blogPost">
-        <h1 class="text-center mt-4 mb-4">@Model.Title</h1>
-        <br />
-        <br />
+<div class="blogPost">
+    <h1 class="text-center mt-4 mb-4">@Model.Title</h1>
+    <br />
+    <br />
 
-        @Html.Raw(Model.Html)
-    </div>
+    @Html.Raw(Model.Html)
+</div>
