@@ -227,6 +227,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-
-appsettings.Development.json
-Blog.Web/wwwroot/lib/

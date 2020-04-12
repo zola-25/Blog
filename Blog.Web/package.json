@@ -2,18 +2,17 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "bootstrap": "4.4.1",
     "del": "^3.0.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-htmlmin": "^4.0.0",
     "gulp-sass": "^4.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.0",
     "merge-stream": "^1.0.1",
-    "tinymce": "4.9.7"
-  },
-  "dependencies": {
+    "tinymce": "4.9.7",
     "gulp-cli": "^2.0.1",
     "lodash": "^4.17.13"
   }

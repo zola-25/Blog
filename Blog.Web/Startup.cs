@@ -36,7 +36,7 @@ namespace Blog
                 loggingBuilder.AddDebug();
             });
             
-            string appInsightsKey = Configuration.GetValue<string>("solores-appinsights-instrumentationkey");
+            string appInsightsKey = Configuration.GetValue<string>("APPINSIGHTS_INSTRUMENTATIONKEY");
             if(appInsightsKey != null) {
                 services.AddApplicationInsightsTelemetry(appInsightsKey);
             }
