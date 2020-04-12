@@ -4,8 +4,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Blog.Web</AssemblyName>
     <RootNamespace>Blog.Web</RootNamespace>
-    <ApplicationInsightsResourceId>/subscriptions/912b23d0-f7da-4cf0-baab-9bf6643eb863/resourcegroups/solores-appinsights/providers/microsoft.insights/components/solores-appinsights</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/a3333d42-90e8-4952-9439-6ce6b8793efe/resourcegroups/zola25blog9d28/providers/microsoft.insights/components/MikeBlog</ApplicationInsightsAnnotationResourceId>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
 

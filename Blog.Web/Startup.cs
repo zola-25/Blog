@@ -36,10 +36,7 @@ namespace Blog
                 loggingBuilder.AddDebug();
             });
             
-            string appInsightsKey = Configuration.GetValue<string>("APPINSIGHTS_INSTRUMENTATIONKEY");
-            if(appInsightsKey != null) {
-                services.AddApplicationInsightsTelemetry(appInsightsKey);
-            }
+            services.AddApplicationInsightsTelemetry();
 
             services.AddMvc(config=> {
                 //config.Filters.Add(typeof(CustomAuthorizationFilter));
