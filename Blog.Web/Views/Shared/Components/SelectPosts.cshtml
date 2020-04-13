@@ -1,0 +1,31 @@
+﻿@model SelectPosts
+
+<div class="select-posts text-center mt-3 mb-3">
+    <div class="form-group">
+        <select class="form-control select-posts-selectbox" asp-for="PostId" asp-items="Model.BlogPosts"></select>
+    </div>
+</div>
+
+@Html.Script(
+        @<script>
+            $(function () {
+                $(document).on('change', '.select-posts-selectbox', function (e) {
+
+                    $.ajax({
+                        url: "/admin/post/" + parseInt(this.value),
+                        method: "GET",
+                        success: function (result) {
+                            $('.admin-edit-post-container').html(result);
+                            editPostForm.loadTinymce();
+
+                            // https://stackoverflow.com/a/14135013/3910619
+                            $("#admin-edit-post-form").removeData("validator");
+                            $("#admin-edit-post-form").removeData("unobtrusiveValidation");
+                            $.validator.unobtrusive.parse("#admin-edit-post-form");
+                            
+                        }
+                    });
+                });
+            });
+        </script>
+)

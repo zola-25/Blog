@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Blog.ViewModels
+namespace Blog.Web.ViewModels
 {
     public class LoginRequest
     {
@@ -13,7 +13,7 @@ namespace Blog.ViewModels
         [Required]
         public string Password { get; set; }
 
-        [Display(Name ="Remember Me?")]
+        [Display(Name = "Remember Me?")]
 
         public bool RememberMe { get; set; }
 

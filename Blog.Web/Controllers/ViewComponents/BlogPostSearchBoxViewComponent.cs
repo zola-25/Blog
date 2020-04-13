@@ -1,4 +1,4 @@
-﻿using Blog.ViewModels;
+﻿using Blog.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers.ViewComponents
@@ -8,7 +8,7 @@ namespace Blog.Controllers.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            return View(new SearchRequest());
+            return View("~/Views/Shared/Components/BlogPostSearchBox.cshtml", new SearchRequest());
         }
     }
 }

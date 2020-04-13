@@ -1,7 +1,6 @@
 ﻿
 @{
     ViewData["Title"] = "Search Results";
-    Layout = "~/Views/Shared/Layouts/_DefaultLayout.cshtml";
 }
 
 @model IEnumerable<SearchResult>
@@ -21,7 +20,7 @@
             <div class="search-result">
                 <div class="card">
                     <div class="card-header">
-                        <a href="@result.Post.Permalink">@result.Post.Title</a>
+                        <a href="/Post/@result.Post.UrlSegment">@result.Post.Title</a>
                     </div>
 
                     <div class="card-body">

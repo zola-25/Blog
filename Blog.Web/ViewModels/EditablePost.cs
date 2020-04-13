@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Blog.ViewModels
+namespace Blog.Web.ViewModels
 {
-    public class NewPost
+    public class EditablePost
     {
+        public int PostId { get; set; }
+
         [Required(ErrorMessage = "Title required")]
         public string Title { get; set; }
 
@@ -16,9 +18,9 @@ namespace Blog.ViewModels
         [Required(ErrorMessage = "Date Created required")]
         public DateTime CreationDate { get; set; } = DateTime.Today;
 
-        [Remote("CheckExistingUrlSegment", "Blog", HttpMethod = "GET", ErrorMessage = "Url segment already exists")]
-        [Required(ErrorMessage = "Unique url segment required")]
+        [Remote("CheckExistingUrlSegment", "EditPostForm", AdditionalFields= "PostId", HttpMethod = "GET", ErrorMessage = "URL segment already exists")]
+        [Required(ErrorMessage = "Unique URL segment required")]
         public string UrlSegment { get; set; }
-        
+
     }
 }

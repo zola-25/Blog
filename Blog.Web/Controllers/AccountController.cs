@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Blog.Data.Models;
-using Blog.ViewModels;
+using Blog.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

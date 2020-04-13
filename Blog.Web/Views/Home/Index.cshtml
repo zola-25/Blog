@@ -10,3 +10,15 @@
 
     @Html.Raw(Model.Html)
 </div>
+
+<div class="share">
+    <div class="share-facebook"></div>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=@(Model.FullLink)" target="_blank">
+        Share on Facebook
+    </a>
+    <div class="share-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=@(Model.FullLinkEncoded)&title=@(Model.Title)">
+            Share on LinkedIn
+        </a>
+    </div>
+</div>

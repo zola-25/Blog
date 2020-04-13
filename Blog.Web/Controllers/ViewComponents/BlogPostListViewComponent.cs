@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Blog.Data.Models;
-using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -25,7 +24,7 @@ namespace Blog.Controllers.ViewComponents
             var viewPosts = await _blogContext
                 .Posts
                 .OrderByDescending(c => c.CreationDate)
-                .Select(c => _mapper.Map<ViewModels.Post>(c))
+                .Select(c => _mapper.Map<Web.ViewModels.Post>(c))
                 .ToListAsync();
 
             foreach (var viewPost in viewPosts.Take(5))
@@ -34,7 +33,7 @@ namespace Blog.Controllers.ViewComponents
             }
             
 
-            return View(viewPosts);
+            return View("~/Views/Shared/Components/BlogPostList.cshtml", viewPosts);
         }
     }
 }

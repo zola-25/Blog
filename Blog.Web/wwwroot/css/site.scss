@@ -3,15 +3,16 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 
+
 .post-list ul {
+    padding: 0;
     list-style-type: none;
 }
+
 
 .sidebar, .blogPost, .nav-content, .search-results {
     padding: 10px;
 }
-
-
 
 .sidebar-links ul {
     padding: 0;
@@ -25,4 +26,16 @@
 .linkedin-logo {
     max-width: 210px;
     height: auto;
+}
+
+.select-posts {
+
+    select {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    option {
+        font-weight: bold;
+    }
 }

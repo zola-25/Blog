@@ -12,29 +12,29 @@
             @*https://getbootstrap.com/docs/4.0/components/navbar/#containers*@
 
 
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand font-weight-bold">Solores Software</a>
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand font-weight-bold">Solores Software</a>
 
-                <div class="navbar-collapse collapse">
-                    @if (User.Identity.IsAuthenticated)
-                    {
+            <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="SignOut">Sign Out</a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <environment include="Development">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a asp-controller="Account" asp-action="SignOut">Sign Out</a>
+                                <a asp-controller="Admin" asp-action="Index">Admin</a>
                             </li>
                         </ul>
-                    }
-                    else
-                    {
-                        <environment include="Development">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a asp-controller="Admin" asp-action="Index">Admin</a>
-                                </li>
-                            </ul>
-                        </environment>
-                    }
-                </div>
+                    </environment>
+                }
             </div>
+        </div>
     </nav>
 
     <div class="container">
@@ -61,5 +61,8 @@
     <partial name="_DefaultScripts" />
 
     @RenderSection("Scripts", required: false)
+
+    @Html.RenderPartialViewScripts();
+
 </body>
 </html>

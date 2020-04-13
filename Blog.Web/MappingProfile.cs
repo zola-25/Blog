@@ -10,8 +10,13 @@ namespace Blog.Web
     {
         public MappingProfile()
         {
-            CreateMap<Data.Models.Post, ViewModels.Post>();
-            CreateMap<ViewModels.NewPost, Data.Models.Post>();
+            CreateMap<Data.Models.Post, ViewModels.Post>().ForMember(
+                    dest => dest.PostId, 
+                    opt => opt.MapFrom(src => src.Id)).ReverseMap();
+
+            CreateMap<ViewModels.EditablePost, Data.Models.Post>().ForMember(
+                    dest => dest.Id, 
+                    opt => opt.MapFrom(src => src.PostId)).ReverseMap();
         }
 
     }

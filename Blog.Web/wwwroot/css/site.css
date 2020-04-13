@@ -7139,6 +7139,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 .post-list ul {
+  padding: 0;
   list-style-type: none; }
 
 .sidebar, .blogPost, .nav-content, .search-results {
@@ -7154,3 +7155,10 @@ a.text-dark:hover, a.text-dark:focus {
 .linkedin-logo {
   max-width: 210px;
   height: auto; }
+
+.select-posts select {
+  font-weight: bold;
+  text-align: center; }
+
+.select-posts option {
+  font-weight: bold; }

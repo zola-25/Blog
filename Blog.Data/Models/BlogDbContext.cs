@@ -15,6 +15,11 @@ namespace Blog.Data.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Post>().Property(p=> p.Title).IsRequired();
+            modelBuilder.Entity<Post>().Property(p=> p.UrlSegment).IsRequired();
+            modelBuilder.Entity<Post>().Property(p=> p.Html).IsRequired();
+            modelBuilder.Entity<Post>().Property(p=> p.CreationDate).IsRequired();
+
             modelBuilder.Entity<Post>()
                 .HasIndex(p => new { p.UrlSegment })
                 .IsUnique(true);
