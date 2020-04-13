@@ -44,7 +44,7 @@ namespace Blog.Controllers
         {
             bool exists = _bloggingContext
                 .Posts
-                .Any(c => c.Permalink == permalink);
+                .Any(c => c.UrlSegment == permalink);
 
             return Json(!exists);
         }

@@ -16,7 +16,7 @@ namespace Blog.Data.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Post>()
-                .HasIndex(p => new { p.Permalink })
+                .HasIndex(p => new { p.UrlSegment })
                 .IsUnique(true);
         }
 

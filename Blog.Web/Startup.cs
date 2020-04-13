@@ -12,6 +12,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
 namespace Blog
 {
@@ -106,7 +107,11 @@ namespace Blog
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                // https://github.com/aspnet/AspNetCore/issues/2051, see the end
+                TelemetryDebugWriter.IsTracingDisabled = true;
+            }
 
             app.UseStaticFiles();
 

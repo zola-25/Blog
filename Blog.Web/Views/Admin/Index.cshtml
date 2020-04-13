@@ -1,26 +1,32 @@
 ﻿
 @model NewPost
 
-<form method="post" asp-action="Admin" asp-controller="Blog">
-    <div class="form-group">
-        <p asp-validation-for="Title"></p>
-        <label for="Title" class="font-weight-bold">Title</label>
-        <input asp-for="Title" class="form-control" placeholder="Title">
-    </div>
-    <div class="form-group">
-        <p asp-validation-for="Permalink"></p>
-        <label for="Permalink" class="font-weight-bold">Permalink</label>
-        <span>/Post/</span><input asp-for="Permalink" class="form-control" placeholder="permalink">
-    </div>
-    <div class="form-group">
-        <p asp-validation-for="Html"></p>
-        <label for="Html" class="font-weight-bold">Content</label>
-        <textarea asp-for="Html"></textarea>
-    </div>
-    <div class="text-center">
-        <button type="submit" class="btn btn-outline-secondary">Submit</button>
-    </div>
-</form>
+    <form method="post" asp-action="BlogPost" asp-controller="Admin">
+        <div class="form-group">
+            <p asp-validation-for="Title"></p>
+            <label asp-for="Title" class="font-weight-bold">Title</label>
+            <input asp-for="Title" class="form-control" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <p asp-validation-for="CreationDate"></p>
+            <label asp-for="CreationDate" class="font-weight-bold">Creation Date</label>
+            <input asp-for="CreationDate" class="form-control" placeholder="Title">
+        </div>
+
+        <div class="form-group">
+            <p asp-validation-for="UrlSegment"></p>
+            <label asp-for="UrlSegment" class="font-weight-bold">URL Segment</label>
+            <span>/Post/</span><input asp-for="UrlSegment" class="form-control" placeholder="URL segment">
+        </div>
+        <div class="form-group">
+            <p asp-validation-for="Html"></p>
+            <label asp-for="Html" class="font-weight-bold">Content</label>
+            <textarea asp-for="Html"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-secondary">Submit</button>
+        </div>
+    </form>
 
 
 

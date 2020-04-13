@@ -40,7 +40,7 @@ namespace Blog.Controllers
         {
             var dbPost = _blogContext
                 .Posts
-                .Single(c => c.Permalink == "/Post/" + urlSegment);
+                .Single(c => c.UrlSegment == urlSegment);
 
             var viewPost = _mapper.Map<Data.Models.Post, ViewModels.Post>(dbPost);
 

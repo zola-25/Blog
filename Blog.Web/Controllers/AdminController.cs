@@ -29,20 +29,19 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Admin(NewPost newPost)
+        public async Task<IActionResult> BlogPost(NewPost newPost)
         {
-            if(_blogContext.Posts.Any(c=>c.Permalink==newPost.Permalink))
+            if(_blogContext.Posts.Any(c=>c.UrlSegment==newPost.UrlSegment))
             {
-                ModelState.AddModelError("Blog.ViewModels.NewPost.Permalink", String.Format("Permalink {0} already exists", newPost.Permalink));
+                ModelState.AddModelError("Blog.ViewModels.NewPost.Permalink", String.Format("Url Segment {0} already exists", newPost.UrlSegment));
             }
 
             if (ModelState.IsValid)
             {
                 var dbPost = _mapper.Map<Data.Models.Post>(newPost);
-                dbPost.CreationDate = DateTime.Now;
                 await _blogContext.AddAsync(dbPost);
                 await _blogContext.SaveChangesAsync();
-                return RedirectToAction("Post", "Home", new { permalink = dbPost.Permalink });
+                return Redirect($"/Post/{dbPost.UrlSegment}");
             }
             return View(newPost);
         }
