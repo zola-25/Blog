@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Net.Http.Headers;
 
 namespace Blog
 {
@@ -121,6 +123,9 @@ namespace Blog
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            var options = GetRewriteRules();
+            app.UseRewriter(options);
+
             if (CurrentEnvironment.IsDevelopment())
             {
                 // https://github.com/aspnet/AspNetCore/issues/2051, see the end
@@ -136,19 +141,53 @@ namespace Blog
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{permalink?}");
-                
+
             });
 
-            if(!CurrentEnvironment.IsDevelopment()) 
+            if (!CurrentEnvironment.IsDevelopment())
             {
                 string connectionString = Configuration.GetConnectionString("BLOG_CONNECTIONSTRING");
                 databaseCreator.CreateDatabase(connectionString); // Create DB manually if not created already, to stop Azure creating a super expensive one
             }
 
             dbContext.Database.Migrate();
-            
+
             DataSeeder.Run(app.ApplicationServices).Wait();
 
+        }
+
+        private RewriteOptions GetRewriteRules()
+        {
+            var options = new RewriteOptions();
+
+            // This is for redirecting from www to non-www, for SEO. 
+            // The site is running as a linux app so IIS rewrite rules in web.config are not possible, and not yet sure how to do it otherwise
+            options.Add(ctx =>
+            {   
+                // checking if the hostName has www. at the beginning
+                var req = ctx.HttpContext.Request;
+                var hostName = req.Host.Host;
+                if (hostName.StartsWith("www."))
+                {
+                    // Strip off www.
+                    var newHostName = hostName.Substring(4);
+
+                    var uriBuilder = new UriBuilder()
+                    {
+                        Host = newHostName,
+                        Scheme = req.Scheme,
+                        Path = req.Path,
+                        Query = req.QueryString.ToString()
+                    };
+
+                    // Modify Http Response
+                    var response = ctx.HttpContext.Response;
+                    response.Headers[HeaderNames.Location] = uriBuilder.Uri.AbsoluteUri;
+                    response.StatusCode = StatusCodes.Status301MovedPermanently;
+                    ctx.Result = RuleResult.EndResponse;
+                }
+            });
+            return options;
         }
     }
 }
