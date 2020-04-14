@@ -2,3 +2,4 @@
 Disallow: /Admin/
 Disallow: /Account/
 Disallow: /Search/
+Disallow: /Error/

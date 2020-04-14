@@ -41,18 +41,17 @@ namespace Blog.Controllers
         }
 
 
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [Route("/Post/{urlSegment}")]
         public IActionResult Post(string urlSegment)
         {
             var dbPost = _blogContext
                 .Posts
-                .Single(c => c.UrlSegment == urlSegment);
+                .SingleOrDefault(c => c.UrlSegment == urlSegment);
+
+            if(dbPost == null)
+            {
+                return NotFound();
+            }
 
             var viewPost = _mapper.Map<Data.Models.Post, Web.ViewModels.Post>(dbPost);
 

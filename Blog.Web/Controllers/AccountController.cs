@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Blog.Data.Models;
 using Blog.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
 
@@ -21,6 +23,7 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult SignIn(string returnUrl = "")
         {
             var model = new LoginRequest { ReturnUrl = returnUrl };
@@ -41,6 +44,7 @@ namespace Blog.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn(LoginRequest loginRequest)
         {
 

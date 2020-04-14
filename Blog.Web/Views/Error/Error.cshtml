@@ -1,0 +1,21 @@
+﻿@model ErrorDetails
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/Layouts/_DefaultLayout.cshtml";
+}
+    <div class="m-3 text-dark">
+        <h3>@Model.StatusCode</h3>
+        <br />
+        <div>
+            @Model.ErrorMessage
+        </div>
+        <br />
+        @if (!String.IsNullOrEmpty(Model.RequestId))
+        {
+            <div>
+                Request ID: @Model.RequestId
+            </div>
+        }
+        <br />
+
+    </div>

@@ -114,14 +114,6 @@ namespace Blog
             {
                 app.UseHsts();
             }
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
 
             var options = GetRewriteRules();
             app.UseRewriter(options);
@@ -135,6 +127,11 @@ namespace Blog
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseExceptionHandler("/Error");
+
+            //UseStatusCode should be before UseMvc
+            app.UseStatusCodePagesWithReExecute("/Error/Handler", "?code={0}");
 
             app.UseMvc(routes =>
             {
@@ -160,18 +157,19 @@ namespace Blog
         {
             var options = new RewriteOptions();
 
-            // This is for redirecting from www to non-www, for SEO. 
+            // This is for redirecting from www to non-www, and away from azurewebsites.net, for SEO. 
             // The site is running as a linux app so IIS rewrite rules in web.config are not possible, and not yet sure how to do it otherwise
             options.Add(ctx =>
             {   
-                // checking if the hostName has www. at the beginning
                 var req = ctx.HttpContext.Request;
                 var hostName = req.Host.Host;
-                if (hostName.StartsWith("www."))
-                {
-                    // Strip off www.
-                    var newHostName = hostName.Substring(4);
 
+                // checking if the hostName has www. at the beginning
+                // or it is the azure web app default domain
+                if (hostName.StartsWith("www.") 
+                || hostName.EndsWith("azurewebsites.net"))
+                {
+                    string newHostName = "solores-software.net";
                     var uriBuilder = new UriBuilder()
                     {
                         Host = newHostName,
