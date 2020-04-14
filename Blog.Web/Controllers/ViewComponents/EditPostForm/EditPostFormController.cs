@@ -46,6 +46,7 @@ namespace Blog.Web.Controllers.ViewComponents.EditPostForm
             if (ModelState.IsValid)
             {
                 var dbPost = _mapper.Map<Data.Models.Post>(newPost);
+                dbPost.LastModifiedDate = DateTime.Today;
                 _blogContext.Update(dbPost); // Performs add or update
                 await _blogContext.SaveChangesAsync();
                 return Ok(isNew ? "Post Added" : "Post Updated");

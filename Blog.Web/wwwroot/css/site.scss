@@ -9,7 +9,6 @@
     list-style-type: none;
 }
 
-
 .sidebar, .blogPost, .nav-content, .search-results {
     padding: 10px;
 }
@@ -37,5 +36,26 @@
 
     option {
         font-weight: bold;
+    }
+}
+
+.share {
+    text-align: center;
+
+    .share-linkedin {
+        display: inline-block;
+
+        img {
+            max-width: 50px;
+            height: auto;
+        }
+    }
+
+    .share-facebook {
+        display: inline-block;
+        img {
+            max-width: 50px;
+            height: auto;
+        }
     }
 }

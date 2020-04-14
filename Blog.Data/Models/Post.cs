@@ -8,6 +8,7 @@ namespace Blog.Data.Models
         public string Title { get; set; }
         public string UrlSegment { get; set; }
         public DateTime CreationDate { get; set; }
+        public DateTime LastModifiedDate { get; set; }
         public string Html { get; set; }
     }
 }

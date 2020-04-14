@@ -6,7 +6,7 @@
         <ul>
             @foreach (var blogPost in Model)
             {
-                <li ><a class="post-list-item @(blogPost.LatestFive ? "latest-five" : "hidden")" href="/post/@blogPost.UrlSegment">@blogPost.Title</a></li>
+                <li ><a class="post-list-item @(blogPost.LatestFive ? "latest-five" : "hidden")" href="@blogPost.Path">@blogPost.Title</a></li>
             }
             @if(Model.Count() > 5) {
                 <li><a class="view-all" href="javascript::void"><i>..view all</i></a></li>

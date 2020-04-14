@@ -7162,3 +7162,16 @@ a.text-dark:hover, a.text-dark:focus {
 
 .select-posts option {
   font-weight: bold; }
+
+.share {
+  text-align: center; }
+  .share .share-linkedin {
+    display: inline-block; }
+    .share .share-linkedin img {
+      max-width: 50px;
+      height: auto; }
+  .share .share-facebook {
+    display: inline-block; }
+    .share .share-facebook img {
+      max-width: 50px;
+      height: auto; }

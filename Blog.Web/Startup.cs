@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace Blog
 {
@@ -39,15 +40,28 @@ namespace Blog
             
             services.AddApplicationInsightsTelemetry();
 
+            //https://stackoverflow.com/a/55196057/3910619
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
             services.AddMvc(config=> {
                 //config.Filters.Add(typeof(CustomAuthorizationFilter));
                 config.EnableEndpointRouting = false;
             })
             .AddRazorRuntimeCompilation();
-                
+            
+            services.AddTransient<ILinkUtilities, LinkUtilities>();
             services.AddTransient<ISnapshotText, SnapshotText>();
             services.AddTransient<IDatabaseCreator, DatabaseCreator>();
             services.AddTransient<DataSeeder>();
+
 
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<BlogAdminUser, BlogAdminRole>(options => {

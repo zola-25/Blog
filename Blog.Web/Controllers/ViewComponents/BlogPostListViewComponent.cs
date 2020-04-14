@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Data.Models;
+using Blog.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -11,28 +12,34 @@ namespace Blog.Controllers.ViewComponents
     {
         private readonly BlogDbContext _blogContext;
         private readonly IMapper _mapper;
+        private readonly ILinkUtilities _linkUtilities;
 
-
-        public BlogPostListViewComponent(BlogDbContext blogContext, IMapper mapper)
+        public BlogPostListViewComponent(BlogDbContext blogContext, IMapper mapper, ILinkUtilities linkUtilities)
         {
             _blogContext = blogContext;
             _mapper = mapper;
+            _linkUtilities = linkUtilities;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var viewPosts = await _blogContext
+            var dbPosts = await _blogContext
                 .Posts
                 .OrderByDescending(c => c.CreationDate)
-                .Select(c => _mapper.Map<Web.ViewModels.Post>(c))
                 .ToListAsync();
+
+            var viewPosts = dbPosts.Select(c => {
+                    var post = _mapper.Map<Web.ViewModels.Post>(c);
+                    post.Permalink = _linkUtilities.GetPermalink(c.UrlSegment);
+                    post.Path = _linkUtilities.GetPath(c.UrlSegment);
+                    return post;
+                }).ToList();
 
             foreach (var viewPost in viewPosts.Take(5))
             {
                 viewPost.LatestFive = true;
             }
             
-
             return View("~/Views/Shared/Components/BlogPostList.cshtml", viewPosts);
         }
     }

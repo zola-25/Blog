@@ -11,14 +11,19 @@
     @Html.Raw(Model.Html)
 </div>
 
-<div class="share">
-    <div class="share-facebook"></div>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=@(Model.FullLink)" target="_blank">
-        Share on Facebook
-    </a>
-    <div class="share-linkedin">
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=@(Model.FullLinkEncoded)&title=@(Model.Title)">
-            Share on LinkedIn
-        </a>
+@section Footer {
+    <div class="share">
+        <h5>Share this article</h5>
+        <div class="share-facebook">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=@(Model.Permalink)" target="_blank">
+                <img src="/images/f_logo_RGB-Hex-Blue_512.png" alt="Share on Facebook" />
+            </a>
+        </div>
+        <div class="share-linkedin">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=@(Model.Permalink)&title=@(Model.Title)" target="_blank">
+               <img src="/images/LI-In-Bug.png" alt="Share on LinkedIn" />
+            </a>
+        </div>
     </div>
-</div>
+    <hr/>
+}
