@@ -38,17 +38,14 @@ namespace Blog.Controllers
 
         private Uri GetRequestUri()
         {
-            var uriBuilder = new UriBuilder();
-            uriBuilder.Scheme = Request.Scheme;
-            uriBuilder.Host = Request.Host.Host;
-            uriBuilder.Path = Request.Path.ToString();
-            uriBuilder.Query = Request.QueryString.ToString();
-
-            if(!(Request.HttpContext.Connection.LocalPort == 443
-                || Request.HttpContext.Connection.LocalPort == 80))
+            var uriBuilder = new UriBuilder
             {
-                uriBuilder.Port = Request.HttpContext.Connection.LocalPort;
-            }
+                Scheme = Request.Scheme,
+                Host = Request.Host.Host,
+                Path = Request.Path.ToString(),
+                Query = Request.QueryString.ToString()
+            };
+
             return uriBuilder.Uri;
         }
 
