@@ -74,5 +74,6 @@ namespace Blog.Web.Controllers
             return View("~/Views/Error/Error.cshtml", errorDetails);
                 
         }
+
     }
 }
