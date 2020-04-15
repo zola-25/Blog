@@ -4,6 +4,7 @@ namespace Blog.Web.ViewModels
 {
     public class Post
     {
+        public bool NoneFound {get;set;}
         public int PostId { get; set; }
         public string Title { get; set; }
         public DateTime CreationDate { get; set; }

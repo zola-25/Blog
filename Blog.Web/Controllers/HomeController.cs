@@ -31,7 +31,12 @@ namespace Blog.Controllers
                 .Posts
                 .Where(c=>!c.Hidden)
                 .OrderByDescending(c => c.CreationDate)
-                .First();
+                .FirstOrDefault();
+
+            if(dbPost == null)
+            {
+                return View("NoneFound");
+            }
 
             var viewPost = _mapper.Map<Data.Models.Post, Web.ViewModels.Post>(dbPost);
 
