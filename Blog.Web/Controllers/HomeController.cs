@@ -29,6 +29,7 @@ namespace Blog.Controllers
         {
             var dbPost = _blogContext
                 .Posts
+                .Where(c=>!c.Hidden)
                 .OrderByDescending(c => c.CreationDate)
                 .First();
 
@@ -46,7 +47,7 @@ namespace Blog.Controllers
         {
             var dbPost = _blogContext
                 .Posts
-                .SingleOrDefault(c => c.UrlSegment == urlSegment);
+                .SingleOrDefault(c => !c.Hidden && c.UrlSegment == urlSegment);
 
             if(dbPost == null)
             {
@@ -65,6 +66,7 @@ namespace Blog.Controllers
         public IActionResult SitemapXml()
         {
             var posts = _blogContext.Posts
+                .Where(c => !c.Hidden)
                .OrderBy(c => c.CreationDate)
                .ToList();
 

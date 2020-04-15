@@ -23,6 +23,8 @@ namespace Blog.Data.Models
             modelBuilder.Entity<Post>().Property(p=> p.Html).IsRequired();
             modelBuilder.Entity<Post>().Property(p=> p.CreationDate).IsRequired();
             modelBuilder.Entity<Post>().Property(p=> p.LastModifiedDate).IsRequired();
+            modelBuilder.Entity<Post>().Property(p=> p.Hidden).IsRequired();
+
 
 
             modelBuilder.Entity<Post>()

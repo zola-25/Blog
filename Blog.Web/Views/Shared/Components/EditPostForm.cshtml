@@ -21,7 +21,12 @@
             <span asp-validation-for="CreationDate" class="text-warning"></span>
 
         </div>
-
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <label asp-for="Hidden" class="form-check-label font-weight-bold">Hidden</label>
+                <input asp-for="Hidden" type="checkbox" class="form-check-input ml-2">
+            </div>
+        </div>
         <div class="form-group">
             <label asp-for="UrlSegment" class="font-weight-bold">URL Segment</label>
             <input asp-for="UrlSegment" class="form-control" placeholder="URL segment">

@@ -22,5 +22,6 @@ namespace Blog.Web.ViewModels
         [Required(ErrorMessage = "Unique URL segment required")]
         public string UrlSegment { get; set; }
 
+        public string Hidden { get; set; }
     }
 }

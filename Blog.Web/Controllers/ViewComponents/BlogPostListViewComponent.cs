@@ -25,6 +25,7 @@ namespace Blog.Controllers.ViewComponents
         {
             var dbPosts = await _blogContext
                 .Posts
+                .Where(c=>!c.Hidden)
                 .OrderByDescending(c => c.CreationDate)
                 .ToListAsync();
 

@@ -31,7 +31,7 @@ namespace Blog.Controllers
         {
             var posts = _bloggingContext
                 .Posts
-                .Where(c => c.Html.Contains(searchRequest.Text) || c.Title.Contains(searchRequest.Text));
+                .Where(c => !c.Hidden && (c.Html.Contains(searchRequest.Text) || c.Title.Contains(searchRequest.Text))).ToList();
             var searchResults = posts.Select(c => 
             new SearchResult() { 
                 Post = _mapper.Map<Data.Models.Post, Web.ViewModels.Post>(c), 

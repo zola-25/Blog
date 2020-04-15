@@ -10,5 +10,6 @@ namespace Blog.Data.Models
         public DateTime CreationDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public string Html { get; set; }
+        public bool Hidden { get; set; }
     }
 }
