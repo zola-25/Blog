@@ -14,9 +14,15 @@
 
 <environment include="Development">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/prism.css" asp-append-version="true" />
+
 </environment>
 <environment exclude="Development">
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/prism.min.css" asp-append-version="true" />
+
 </environment>
+
+
 
 @Html.Raw(JavaScriptSnippet.FullScript)

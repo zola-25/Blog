@@ -15,7 +15,7 @@ gulp.task("clean-lib", function () {
 });
 
 gulp.task("clean-css", function () {
-    return del(['wwwroot/css/*.css']);
+    return del(['wwwroot/css/site.css', 'wwwroot/css/*.min.css']);
 });
 
 gulp.task("clean-js", function () {

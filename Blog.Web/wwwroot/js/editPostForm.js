@@ -52,7 +52,34 @@
                 tinymce.remove('#admin-edit-post-html'); 
                 tinymce.init({
                     selector: '#admin-edit-post-html',
-                    plugins: "preview code"
+                    plugins: "preview code codesample",
+                    toolbar: "codesample",
+                    codesample_languages: [
+                        {text: 'HTML/XML', value: 'markup'},
+                        {text: 'JavaScript', value: 'javascript'},
+                        {text: 'CSS', value: 'css'},
+                        {text: 'Python', value: 'python'},
+                        {text: 'Java', value: 'java'},
+                        {text: 'C', value: 'c'},
+                        {text: 'C#', value: 'csharp'},
+                        {text: 'C++', value: 'cpp'},
+                        {text: 'R', value: 'r'},
+                        {text: 'SQL', value: 'sql'},
+                        {text: 'YAML', value: 'yaml'},
+                        {text: 'Docker', value: 'docker'},
+                        {text: 'Git', value: 'git'},
+                        {text: 'JSON', value: 'json'},
+                        {text: 'Excel Formula', value: 'excel-formula'},
+                        {text: 'F#', value: 'fsharp'},
+                        {text: 'VB.NET', value: 'vbnet'},
+                        {text: 'Sass', value: 'scss'},
+                        {text: 'Typescript', value: 'typescript'},
+                        {text: 'Gherkin', value: 'gherkin'},
+                        {text: 'HTTP', value: 'http'},
+                        {text: 'ASP.NET', value: 'aspnet'},
+                        {text: 'Powershell', value: 'powershell'},
+                        {text: 'Bash', value: 'bash'}
+                    ]
                 });
             }
         };
