@@ -6,7 +6,7 @@
       "node_modules/tinymce/plugins/preview/**/*",
       "node_modules/tinymce/plugins/code/**/*",
       "node_modules/tinymce/plugins/codesample/**/*",
-
+      "node_modules/tinymce/plugins/link/**/*",
       "node_modules/tinymce/themes/**/*",
       "node_modules/tinymce/skins/**/*"
 

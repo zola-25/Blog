@@ -52,8 +52,10 @@
                 tinymce.remove('#admin-edit-post-html'); 
                 tinymce.init({
                     selector: '#admin-edit-post-html',
-                    plugins: "preview code codesample",
-                    toolbar: "codesample",
+                    plugins: "preview code codesample link",
+                    toolbar: "codesample link",
+                    link_assume_external_targets: true,
+
                     codesample_languages: [
                         {text: 'HTML/XML', value: 'markup'},
                         {text: 'JavaScript', value: 'javascript'},

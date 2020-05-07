@@ -1,6 +1,10 @@
 ﻿@model EditablePost
 
-
+@if(Model.NewlyCreated) {
+    <div class="text-center">
+        <h4 class="font-weight-bold text-success">New Post Created</h4>
+    </div>
+}
     <form id="admin-edit-post-form"
           data-ajax="true"
           data-ajax-method="POST"
@@ -11,39 +15,58 @@
 
         <input asp-for="PostId" type="hidden" />
         <div class="form-group">
-            <label asp-for="Title" class="font-weight-bold">Title</label>
-            <input asp-for="Title" class="form-control" placeholder="Title">
-            <span asp-validation-for="Title" class="text-warning"></span>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label asp-for="Title" class="input-group-text font-weight-bold">Title</label>
+                </div>
+                <input asp-for="Title" class="form-control" placeholder="Title">
+                <span asp-validation-for="Title" class="text-warning"></span>
+            </div>
         </div>
         <div class="form-group">
-            <label asp-for="CreationDate" class="font-weight-bold">Creation Date</label>
-            <input asp-for="CreationDate" class="form-control" placeholder="Title">
-            <span asp-validation-for="CreationDate" class="text-warning"></span>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label asp-for="CreationDate" class="input-group-text font-weight-bold">Creation Date</label>
+                </div>
+                <input asp-for="CreationDate" class="form-control" placeholder="Title">
+                <span asp-validation-for="CreationDate" class="text-warning"></span>
+            </div>
+        </div>
+        <div class="form-group">
 
-        </div>
-        <div class="form-group">
             <div class="form-check form-check-inline">
                 <label asp-for="Hidden" class="form-check-label font-weight-bold">Hidden</label>
                 <input asp-for="Hidden" type="checkbox" class="form-check-input ml-2">
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="UrlSegment" class="font-weight-bold">URL Segment</label>
-            <input asp-for="UrlSegment" class="form-control" placeholder="URL segment">
-            <span asp-validation-for="UrlSegment" class="text-warning"></span>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label asp-for="UrlSegment" class="input-group-text font-weight-bold">URL Segment</label>
+                </div>
+
+                <input asp-for="UrlSegment" class="form-control" placeholder="URL segment">
+                <span asp-validation-for="UrlSegment" class="text-warning"></span>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Html" class="font-weight-bold">Content</label>
-            <textarea id="admin-edit-post-html" asp-for="Html"></textarea>
-            <span asp-validation-for="Html" class="text-warning"></span>
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-outline-secondary">@(Model.PostId == 0 ? "Create" : "Submit Changes")</button>
+
+        <div class="mb-2">
+            <button type="submit" class="btn btn-outline-success">@(Model.PostId == 0 ? "Create" : "Update")</button>
+
+            @if(Model.PostId != 0) {
+                <a href="@Model.Path" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary">
+                    View Post
+                </a>
+            }
             <button type="button" class="btn btn-outline-danger admin-delete-post" style="@(Model.PostId == 0 ? "display: none;" : null)">Delete</button>
         </div>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="admin-edit-post-result" style="display: none;">
 
+        </div>
+        <div class="form-group">
+            <textarea class="admin-edit-post-html" id="admin-edit-post-html" asp-for="Html"></textarea>
+            <span asp-validation-for="Html" class="text-warning"></span>
         </div>
     </form>
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Data.Models;
+using Blog.Web.Services;
 using Blog.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,11 +14,13 @@ namespace Blog.Web.Controllers.ViewComponents.EditPostForm
     {
         private readonly IMapper _mapper;
         private readonly BlogDbContext _blogContext;
+        private readonly ILinkUtilities _linkUtilities;
 
-        public EditPostFormViewComponent(IMapper mapper, BlogDbContext blogContext)
+        public EditPostFormViewComponent(IMapper mapper, BlogDbContext blogContext, ILinkUtilities linkUtilities)
         {
             _mapper = mapper;
             _blogContext = blogContext;
+            _linkUtilities = linkUtilities;
         }
 
         public IViewComponentResult Invoke(int postId)
@@ -29,6 +32,7 @@ namespace Blog.Web.Controllers.ViewComponents.EditPostForm
             
             var dbBlogPost = _blogContext.Posts.Single(c => c.Id == postId);
             var viewModel = _mapper.Map<EditablePost>(dbBlogPost);
+            viewModel.Path = _linkUtilities.GetPath(viewModel.UrlSegment);
 
             return View("~/Views/Shared/Components/EditPostForm.cshtml", viewModel);
         }

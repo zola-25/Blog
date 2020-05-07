@@ -23,5 +23,8 @@ namespace Blog.Web.ViewModels
         public string UrlSegment { get; set; }
 
         public string Hidden { get; set; }
+
+        public string Path {get;set;}
+        public bool NewlyCreated { get; set; }
     }
 }
