@@ -110,10 +110,7 @@ namespace Blog
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, BlogDbContext dbContext, IDatabaseCreator databaseCreator)
         {
-            if (!env.IsDevelopment())
-            {
-                app.UseHsts();
-            }
+            
 
             var options = GetRewriteRules();
             app.UseRewriter(options);
