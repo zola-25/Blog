@@ -16,6 +16,6 @@
     "lodash": "^4.17.13",
     "merge-stream": "^1.0.1",
     "popper.js": "^1.16.0",
-    "tinymce": "4.9.7"
+    "tinymce": "5.6.0"
   }
 }
